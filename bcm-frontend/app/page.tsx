@@ -3,22 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Church } from "lucide-react";
-import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { address } from "motion/react-client";
+import { churchInfo } from "@/data/church-info";
 
 export default function Home() {
   const router = useRouter();
-  const churchInfo = {
-    name: "C&S Youth Fellowship",
-    branch: "Surulere District HQ",
-    logoUrl: "",
-    address: "123 Church St, Surulere, Lagos",
-    email: "",
-    phone: "+234 800 123 4567",
-    imageUrl: "/church-hero.jpg",
-  };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-50 relative overflow-hidden">
