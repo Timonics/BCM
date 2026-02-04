@@ -13,15 +13,12 @@ import {
   ClipboardCheck,
   ChartBar,
   Settings,
-  Database,
-  FileText,
   Cross,
   LogOut,
   Menu,
   X,
 } from "lucide-react";
-import { useState } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface SidebarProps {
   isMobileSidebarOpen: boolean;
@@ -40,7 +37,7 @@ export default function Sidebar({
   isSidebarCollapsed,
   setIsSidebarCollapsed,
 }: SidebarProps) {
-  //   const router = useRouter();
+  const router = useRouter();
 
   const menuItems = [
     { name: "Dashboard", icon: House },
@@ -54,9 +51,6 @@ export default function Sidebar({
     { name: "Attendance", icon: ClipboardCheck },
     { name: "Reports", icon: ChartBar },
     { name: "Settings", icon: Settings },
-    { name: "Data Model", icon: Database },
-    { name: "BCM PRD", icon: FileText },
-    { name: "API Endpoint", icon: Database },
   ];
 
   return (
@@ -116,6 +110,13 @@ export default function Sidebar({
                 onClick={() => {
                   setActiveItem(item.name);
                   setIsMobileSidebarOpen(false);
+                  if (item.name === "Dashboard") {
+                    router.push("/dashboard");
+                  } else {
+                    router.push(
+                      `/dashboard/${item.name.toLowerCase().replace(/ /g, "-")}`,
+                    );
+                  }
                 }}
                 className={`
                   w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all
