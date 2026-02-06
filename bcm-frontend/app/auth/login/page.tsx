@@ -236,7 +236,7 @@ export default function LoginPage() {
                   <div className="mt-2 relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8F9BB3] z-10 pointer-events-none" />
                     <Select value={role} onValueChange={setRole} required>
-                      <SelectTrigger className="h-11 sm:h-12 pl-11 rounded-xl border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-sm sm:text-base">
+                      <SelectTrigger className="h-11 sm:h-12 pl-11 rounded-xl w-full border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-sm sm:text-base">
                         <SelectValue placeholder="Select your role" />
                       </SelectTrigger>
                       <SelectContent>
