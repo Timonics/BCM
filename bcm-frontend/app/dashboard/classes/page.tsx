@@ -52,69 +52,12 @@ export default function ClassesPage() {
         {(activeTab === "Baptisimal Class" || activeTab === "ETS Class") && (
           <Button
             className="bg-[#009AF4] hover:bg-[#0086D6] text-white"
-            // onClick={() => router.push(`/dashboard/classes/add`)}
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Batch
           </Button>
         )}
       </div>
-      {/* {viewMode === "cards" ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((c) => (
-            <Card key={c.id} className="border-[#EDF1F7] shadow-sm hover:shadow-md transition-shadow">
-              <CardHeader>
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center">
-                    <GraduationCap className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <Badge className={
-                      c.status === "Completed" ? "bg-gray-50 text-gray-700 border-gray-200" : c.status === "Ongoing" ? "bg-green-50 text-green-700 border-green-200" : "bg-blue-50 text-blue-700 border-blue-200"
-                    }>
-                      {c.status}
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <CardTitle className="text-lg text-[#222B45]">{c.title}</CardTitle>
-                  <div className="flex items-center gap-2 text-sm text-[#8F9BB3]">
-                    <Users className="w-4 h-4" />
-                    <span>{c.Baptisimal Class} Baptisimal Class • {c.instructor}</span>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <p className="text-sm text-[#8F9BB3] line-clamp-2">{c.description}</p>
-
-                <div className="pt-3 border-t border-[#EDF1F7] flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    className="flex-1 border-[#EDF1F7] hover:bg-[#F7F9FC]"
-                    onClick={() => router.push(`/dashboard/classes/${c.id}`)}
-                  >
-                    <Eye className="w-4 h-4 mr-2" />
-                    View
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="border-[#EDF1F7] hover:bg-[#F7F9FC]"
-                    onClick={() => router.push(`/dashboard/classes/${c.id}/edit`)}
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card className="border-[#EDF1F7] shadow-sm">
-          <CardContent className="p-4">Table view coming soon</CardContent>
-        </Card>
-      )} */}
 
       {/* Tabs */}
       <div className="mt-4">
