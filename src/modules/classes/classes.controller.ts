@@ -99,7 +99,7 @@ export class ClassesController {
   @ApiOperation({
     summary: 'Get Pre-Youth batch details',
     description:
-      'Returns detailed information including status, dates, year, active members, ready for graduation, gender distribution, average attendance, leadership, graduation readiness, and member list',
+      'Return detailed information including status, dates, year, active members, ready for graduation, gender distribution, average attendance, leadership, graduation readiness, and member list',
   })
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
