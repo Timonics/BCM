@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Card,
+  CardContent 
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
@@ -33,7 +36,6 @@ import {
   Funnel,
   Droplet,
   Sparkles,
-  CircleCheck,
   CircleCheckBig,
   ClipboardCheck,
   Music,
@@ -291,7 +293,7 @@ const etsAugBatches: EtsBatch[] = [
   },
 ];
 
-//Reusable badge classes
+//Reusable badge classes 
 
 const badgeBase =
   "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden";
@@ -316,7 +318,7 @@ export default function ClassesPage() {
   const [etsSearch, setEtsSearch] = useState("");
   const [etsYear, setEtsYear] = useState("");
 
-  //Filter helpers
+  // ── Filter helpers ───────────────────────────────────────────────────────
 
   function filterBaptismal(batches: BaptismalBatch[]) {
     return batches.filter((b) => {
@@ -343,7 +345,7 @@ export default function ClassesPage() {
   const filteredEtsJan = filterEts(etsJanBatches);
   const filteredEtsAug = filterEts(etsAugBatches);
 
-  //Batch card renderers
+  // ── Batch card renderers ─────────────────────────────────────────────────
 
   function renderBaptismalCard(b: BaptismalBatch) {
     return (
@@ -431,7 +433,7 @@ export default function ClassesPage() {
             </div>
 
             {/* Footer badges */}
-            <div className="flex items-center justify-between pt-3 border-t border-[#EDF1F7]">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-[#EDF1F7]">
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Status badge */}
                 {b.status === "Not Started" && (
@@ -589,7 +591,7 @@ export default function ClassesPage() {
             </div>
 
             {/* Footer badges */}
-            <div className="flex items-center justify-between pt-3 border-t border-[#EDF1F7]">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-[#EDF1F7]">
               <div className="flex items-center gap-2 flex-wrap">
                 {b.status === "Not Started" && (
                   <span className={`${badgeBase} bg-gray-50 text-gray-700 border-gray-200`}>
@@ -638,7 +640,7 @@ export default function ClassesPage() {
     );
   }
 
-  //Render
+  //Render 
 
   return (
     <div className="space-y-6">
@@ -663,7 +665,7 @@ export default function ClassesPage() {
 
       {/* Tabs */}
       <div className="mt-4">
-        <div className="bg-[#F7F9FC] p-1 rounded-lg inline-flex">
+        <div className="bg-[#F7F9FC] p-1 rounded-lg inline-flex overflow-x-auto max-w-full">
           {(["Pre-Youth Class", "baptismal Class", "ETS Class"] as const).map((tab) => (
             <button
               key={tab}
@@ -774,7 +776,7 @@ export default function ClassesPage() {
               </Card>
 
               {/* Pre-Youth batch list — kept as original hardcoded cards */}
-              <div className="flex items-center justify-between mb-4 mt-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4 mt-4">
                 <h2 className="text-lg font-semibold text-[#222B45]">Pre-Youth Class Batches</h2>
                 <span className="inline-flex px-2 py-0.5 font-medium justify-center rounded-md border bg-blue-50 text-blue-700 border-blue-200 items-center">
                   2 Batches
@@ -962,11 +964,11 @@ export default function ClassesPage() {
             </CardContent>
           )}
 
-          {/*BAPTISMAL TAB*/}
+          {/* BAPTISMAL TAB*/}
           {activeTab === "baptismal Class" && (
             <CardContent className="p-4">
               {/* Stats */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: "Active Batches", value: 2, sub: "Currently Running", subColor: "text-green-600", icon: <CheckCircle className="w-6 h-6 text-green-600" />, bg: "bg-green-50" },
                   { label: "Members in Class", value: 45, sub: "Active enrolment", subColor: "", icon: <Users className="w-6 h-6 text-blue-600" />, bg: "bg-blue-50" },
@@ -990,7 +992,7 @@ export default function ClassesPage() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between mb-4 mt-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4 mt-4">
                 <h2 className="text-lg font-semibold text-[#222B45]">Baptismal Class Batches</h2>
                 <span className="inline-flex px-2 py-0.5 font-medium justify-center rounded-md border bg-blue-50 text-blue-700 border-blue-200 items-center text-xs">
                   {baptismalJanBatches.length + baptismalAugBatches.length} Batches
@@ -1041,7 +1043,7 @@ export default function ClassesPage() {
               </div>
 
               {/* January Batches */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-blue-600" />
@@ -1062,7 +1064,7 @@ export default function ClassesPage() {
               </div>
 
               {/* August Batches */}
-              <div className="flex items-center justify-between mb-4 mt-5">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4 mt-5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-blue-600" />
@@ -1084,11 +1086,11 @@ export default function ClassesPage() {
             </CardContent>
           )}
 
-          {/*ETS TAB*/}
+          {/*ETS TAB */}
           {activeTab === "ETS Class" && (
             <CardContent className="p-4">
               {/* Stats */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: "Active Batches", value: 2, sub: "Currently Running", subColor: "text-green-600", icon: <CheckCircle className="w-6 h-6 text-green-600" />, bg: "bg-green-50" },
                   { label: "Members in Class", value: 32, sub: "Active enrolment", subColor: "", icon: <Users className="w-6 h-6 text-blue-600" />, bg: "bg-blue-50" },
@@ -1112,7 +1114,7 @@ export default function ClassesPage() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between mb-4 mt-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4 mt-4">
                 <h2 className="text-lg font-semibold text-[#222B45]">ETS Class Batches</h2>
                 <span className="inline-flex px-2 py-0.5 font-medium justify-center rounded-md border bg-blue-50 text-blue-700 border-blue-200 items-center text-xs">
                   {etsJanBatches.length + etsAugBatches.length} Batches
@@ -1163,7 +1165,7 @@ export default function ClassesPage() {
               </div>
 
               {/* January Batches */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-green-600" />
@@ -1184,7 +1186,7 @@ export default function ClassesPage() {
               </div>
 
               {/* August Batches */}
-              <div className="flex items-center justify-between mb-4 mt-5">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4 mt-5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-green-600" />
@@ -1205,7 +1207,6 @@ export default function ClassesPage() {
               </div>
             </CardContent>
           )}
-
         </div>
       </div>
     </div>
