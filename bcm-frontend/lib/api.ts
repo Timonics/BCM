@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://45.77.91.37/api";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// if (!BACKEND_URL) {
-//   throw new Error("BACKEND_URL is not defined");
-// }
+if (!BACKEND_URL) {
+  throw new Error("BACKEND_URL is not defined");
+}
 
 export interface BackendCallOptions {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
