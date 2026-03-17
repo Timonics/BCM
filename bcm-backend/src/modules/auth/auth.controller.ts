@@ -1,14 +1,16 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Res } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { AuthResponseDto } from './dto/auth-response.dto';
+import { AuthUserDto } from './dto/auth-response.dto';
 import { Public } from './decorators/public.decorator';
+import { CookieService } from './cookie.service';
 
 /**
  * Authentication Controller
@@ -18,7 +20,10 @@ import { Public } from './decorators/public.decorator';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly cookieService: CookieService,
+  ) {}
 
   /**
    * User login endpoint
@@ -33,10 +38,19 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'Login successful',
-    type: AuthResponseDto,
+    type: AuthUserDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid credentials' })
-  async loginUser(@Body() loginDto: LoginDto): Promise<AuthResponseDto> {
-    return this.authService.loginUser(loginDto);
+  async loginUser(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<AuthUserDto> {
+    const authResponse = await this.authService.loginUser(loginDto);
+    const cookie = this.cookieService.getAccessTokenCookie(
+      authResponse.accessToken,
+    );
+    res.cookie(cookie.name, cookie.value, cookie.options);
+
+    return authResponse.user;
   }
 }

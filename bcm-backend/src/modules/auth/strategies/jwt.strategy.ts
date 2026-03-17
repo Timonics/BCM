@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../../users/users.service';
+import { Request } from 'express';
 
 /**
  * JWT Strategy for Passport
@@ -14,8 +15,36 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private configService: ConfigService,
     private usersService: UsersService,
   ) {
+    const cookieName =
+      configService.get<string>('AUTH_COOKIE_NAME') ||
+      configService.get<string>('JWT_COOKIE_NAME') ||
+      'bcm_access_token';
+
+    const cookieExtractor = (req: Request): string | null => {
+      if (!req || !req.headers) {
+        return null;
+      }
+
+      const rawCookie = req.headers.cookie;
+      if (!rawCookie) {
+        return null;
+      }
+
+      const cookies = rawCookie.split(';');
+      for (const cookie of cookies) {
+        const [key, ...rest] = cookie.split('=');
+        if (key && key.trim() === cookieName) {
+          return rest.join('=').trim() || null;
+        }
+      }
+      return null;
+    };
+
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        cookieExtractor,
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('JWT_SECRET') || 'your-secret-key',
     });
