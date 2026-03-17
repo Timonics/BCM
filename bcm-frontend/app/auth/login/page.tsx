@@ -26,6 +26,12 @@ import { useRouter } from "next/navigation";
 import { churchInfo } from "@/data/church-info";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "react-toastify";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Login - BCM",
+  description: "Sign in to your administrator account",
+};
 
 export default function LoginPage() {
   const router = useRouter();
