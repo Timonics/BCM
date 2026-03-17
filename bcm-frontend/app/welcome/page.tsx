@@ -15,12 +15,6 @@ import {
 } from "lucide-react";
 import { churchInfo } from "@/data/church-info";
 import { useRouter } from "next/dist/client/components/navigation";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Welcome - BCM",
-  description: "Welcome back to BCM ",
-};
 
 export default function WelcomePage() {
   const router = useRouter();
