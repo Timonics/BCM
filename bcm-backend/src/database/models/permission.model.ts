@@ -39,4 +39,3 @@ export class Permission extends Model<Permission> {
   @BelongsToMany(() => Role, () => RolePermission, 'permissionId', 'roleId')
   roles: Role[];
 }
-

@@ -13,15 +13,25 @@ export class DepartmentUnitResponseDto {
   @ApiPropertyOptional({ description: 'Unit code', example: 'TMU' })
   code?: string;
 
-  @ApiProperty({ description: 'Unit status', enum: ['active', 'archived'], example: 'active' })
+  @ApiProperty({
+    description: 'Unit status',
+    enum: ['active', 'archived'],
+    example: 'active',
+  })
   status: string;
 
-  @ApiPropertyOptional({ description: 'Unit leader name', example: 'Sister Sarah Wilson' })
+  @ApiPropertyOptional({
+    description: 'Unit leader name',
+    example: 'Sister Sarah Wilson',
+  })
   leader?: string;
 
   @ApiProperty({ description: 'Member count', example: 45 })
   memberCount: number;
 
-  @ApiPropertyOptional({ description: 'Leadership alerts for this unit', example: 1 })
+  @ApiPropertyOptional({
+    description: 'Leadership alerts for this unit',
+    example: 1,
+  })
   alerts?: number;
 }

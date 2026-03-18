@@ -51,4 +51,3 @@ export class MemberAcademicDto {
   @IsDateString()
   endDate?: string;
 }
-

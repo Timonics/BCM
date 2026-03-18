@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsEnum, IsDateString, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsEnum,
+  IsDateString,
+  IsOptional,
+} from 'class-validator';
 
 /**
  * DTO for assigning a band executive
@@ -16,12 +22,14 @@ export class AssignBandExecutiveDto {
   memberId: string;
 
   @ApiProperty({
-    description: 'Executive role. Valid values: patron, matron, captain, vice_captain, secretary',
+    description:
+      'Executive role. Valid values: patron, matron, captain, vice_captain, secretary',
     enum: ['patron', 'matron', 'captain', 'vice_captain', 'secretary'],
     example: 'captain',
   })
   @IsEnum(['patron', 'matron', 'captain', 'vice_captain', 'secretary'], {
-    message: 'role must be one of the following values: patron, matron, captain, vice_captain, secretary',
+    message:
+      'role must be one of the following values: patron, matron, captain, vice_captain, secretary',
   })
   @IsNotEmpty()
   role: string;
@@ -42,4 +50,3 @@ export class AssignBandExecutiveDto {
   @IsDateString()
   endDate?: string;
 }
-

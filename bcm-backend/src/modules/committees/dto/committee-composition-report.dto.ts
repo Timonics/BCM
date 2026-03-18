@@ -19,7 +19,10 @@ export class CommitteeCompositionRowDto {
   @ApiProperty({ description: 'Project ID', example: 'uuid' })
   projectId: string;
 
-  @ApiProperty({ description: 'Project name', example: 'Easter Revival Campaign' })
+  @ApiProperty({
+    description: 'Project name',
+    example: 'Easter Revival Campaign',
+  })
   projectName: string;
 
   @ApiPropertyOptional({ description: 'Project type', example: 'Evangelism' })

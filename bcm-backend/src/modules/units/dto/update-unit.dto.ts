@@ -29,7 +29,8 @@ export class UpdateUnitDto {
 
   @ApiPropertyOptional({
     description: 'Unit description',
-    example: 'Responsible for teaching ministries, Sunday School, and Bible study classes',
+    example:
+      'Responsible for teaching ministries, Sunday School, and Bible study classes',
     maxLength: 500,
   })
   @IsOptional()

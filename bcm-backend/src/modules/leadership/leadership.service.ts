@@ -864,10 +864,7 @@ export class LeadershipService {
             `Role "${roleTemplate.name}" can only have one active holder. Please end the current assignment first.`,
           );
         }
-      } else if (
-        roleTemplate.scopeType === 'contextual' &&
-        assignDto.scopeId
-      ) {
+      } else if (roleTemplate.scopeType === 'contextual' && assignDto.scopeId) {
         const existingInScope = await this.leadershipAssignmentModel.findOne({
           where: {
             templateId: roleTemplate.id,

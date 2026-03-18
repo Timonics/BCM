@@ -1,5 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsDateString, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsDateString,
+  IsOptional,
+} from 'class-validator';
 
 /**
  * DTO for adding a member to a band
@@ -21,4 +26,3 @@ export class AddBandMemberDto {
   @IsDateString()
   startDate?: string;
 }
-

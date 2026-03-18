@@ -100,4 +100,3 @@ export class Unit extends Model<Unit> {
   @HasMany(() => UnitMembership, 'unitId')
   memberships: UnitMembership[];
 }
-

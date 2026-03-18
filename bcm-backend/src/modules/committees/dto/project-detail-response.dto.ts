@@ -7,12 +7,27 @@ export class ProjectDetailResponseDto {
   @ApiProperty({ description: 'Project ID', example: 'uuid' })
   id: string;
 
-  @ApiProperty({ description: 'Project name', example: 'Easter Revival Campaign' })
+  @ApiProperty({
+    description: 'Project name',
+    example: 'Easter Revival Campaign',
+  })
   name: string;
 
   @ApiProperty({
     description: 'Project type',
-    enum: ['Evangelism', 'Worship', 'Education', 'Infrastructure', 'Welfare', 'Youth', 'Program', 'Event', 'Construction', 'Outreach', 'General'],
+    enum: [
+      'Evangelism',
+      'Worship',
+      'Education',
+      'Infrastructure',
+      'Welfare',
+      'Youth',
+      'Program',
+      'Event',
+      'Construction',
+      'Outreach',
+      'General',
+    ],
     example: 'Evangelism',
   })
   projectType: string;
@@ -45,6 +60,9 @@ export class ProjectDetailResponseDto {
   @ApiProperty({ description: 'Leadership alerts count', example: 1 })
   leadershipAlerts: number;
 
-  @ApiProperty({ description: 'Last updated', example: '2025-02-09T12:00:00.000Z' })
+  @ApiProperty({
+    description: 'Last updated',
+    example: '2025-02-09T12:00:00.000Z',
+  })
   updatedAt: Date;
 }

@@ -21,7 +21,7 @@ import { MemberEmployment } from './member-employment.model';
  * Core entity for the BCM system
  * Uses soft delete - deleted members are marked with deleted_at instead of being removed
  */
-@Table({ 
+@Table({
   tableName: 'members',
   paranoid: true, // Enable soft delete (uses deleted_at)
   deletedAt: 'deleted_at', // Column name for soft delete
@@ -211,10 +211,12 @@ export class Member extends Model<Member> {
     const birthDate = new Date(this.dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
       age--;
     }
     return age;
   }
 }
-

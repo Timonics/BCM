@@ -42,4 +42,3 @@ export class RolePermission extends Model<RolePermission> {
   @BelongsTo(() => Permission, 'permissionId')
   permission: Permission;
 }
-

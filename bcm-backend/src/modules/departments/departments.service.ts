@@ -135,30 +135,45 @@ export class DepartmentsService {
 
         let headName =
           dept.headOfDepartment &&
-          [dept.headOfDepartment.firstName, dept.headOfDepartment.middleName, dept.headOfDepartment.surname]
+          [
+            dept.headOfDepartment.firstName,
+            dept.headOfDepartment.middleName,
+            dept.headOfDepartment.surname,
+          ]
             .filter(Boolean)
             .join(' ');
 
         // If no head from department field, use "Head of Department" assignment
         if (!headName) {
           const headRole = await this.leadershipRoleTemplateModel.findOne({
-            where: { name: { [Op.iLike]: '%head of department%' }, category: 'DEPARTMENT' },
+            where: {
+              name: { [Op.iLike]: '%head of department%' },
+              category: 'DEPARTMENT',
+            },
           });
           if (headRole) {
-            const headAssignment = await this.leadershipAssignmentModel.findOne({
-              where: {
-                templateId: headRole.id,
-                scopeEntity: 'DEPARTMENT',
-                scopeId: dept.id,
-                leadershipStatus: { [Op.in]: ['active', 'acting'] },
+            const headAssignment = await this.leadershipAssignmentModel.findOne(
+              {
+                where: {
+                  templateId: headRole.id,
+                  scopeEntity: 'DEPARTMENT',
+                  scopeId: dept.id,
+                  leadershipStatus: { [Op.in]: ['active', 'acting'] },
+                },
+                include: [
+                  {
+                    model: Member,
+                    as: 'member',
+                    attributes: ['firstName', 'middleName', 'surname'],
+                  },
+                ],
               },
-              include: [
-                { model: Member, as: 'member', attributes: ['firstName', 'middleName', 'surname'] },
-              ],
-            });
+            );
             if (headAssignment?.member) {
               const m = (headAssignment as any).member;
-              headName = [m.firstName, m.middleName, m.surname].filter(Boolean).join(' ');
+              headName = [m.firstName, m.middleName, m.surname]
+                .filter(Boolean)
+                .join(' ');
             }
           }
         }
@@ -221,7 +236,9 @@ export class DepartmentsService {
       },
       attributes: ['scopeId'],
     });
-    const deptIdsWithAlerts = [...new Set((deptsWithExpiring.map((a) => a.scopeId)).filter(Boolean))];
+    const deptIdsWithAlerts = [
+      ...new Set(deptsWithExpiring.map((a) => a.scopeId).filter(Boolean)),
+    ];
     const withAlerts = deptIdsWithAlerts.length;
 
     return {
@@ -247,7 +264,14 @@ export class DepartmentsService {
         {
           model: Member,
           as: 'headOfDepartment',
-          attributes: ['id', 'firstName', 'middleName', 'surname', 'email', 'phone'],
+          attributes: [
+            'id',
+            'firstName',
+            'middleName',
+            'surname',
+            'email',
+            'phone',
+          ],
           required: false,
         },
       ],
@@ -313,7 +337,11 @@ export class DepartmentsService {
 
     let head =
       dept.headOfDepartment &&
-      [dept.headOfDepartment.firstName, dept.headOfDepartment.middleName, dept.headOfDepartment.surname]
+      [
+        dept.headOfDepartment.firstName,
+        dept.headOfDepartment.middleName,
+        dept.headOfDepartment.surname,
+      ]
         .filter(Boolean)
         .join(' ');
     let headEmail = dept.headOfDepartment?.email;
@@ -322,7 +350,10 @@ export class DepartmentsService {
     // If no head from department field, use "Head of Department" assignment
     if (!head) {
       const headRole = await this.leadershipRoleTemplateModel.findOne({
-        where: { name: { [Op.iLike]: '%head of department%' }, category: 'DEPARTMENT' },
+        where: {
+          name: { [Op.iLike]: '%head of department%' },
+          category: 'DEPARTMENT',
+        },
       });
       if (headRole) {
         const headAssignment = await this.leadershipAssignmentModel.findOne({
@@ -333,12 +364,25 @@ export class DepartmentsService {
             leadershipStatus: { [Op.in]: ['active', 'acting'] },
           },
           include: [
-            { model: Member, as: 'member', attributes: ['id', 'firstName', 'middleName', 'surname', 'email', 'phone'] },
+            {
+              model: Member,
+              as: 'member',
+              attributes: [
+                'id',
+                'firstName',
+                'middleName',
+                'surname',
+                'email',
+                'phone',
+              ],
+            },
           ],
         });
         if (headAssignment?.member) {
           const m = (headAssignment as any).member;
-          head = [m.firstName, m.middleName, m.surname].filter(Boolean).join(' ');
+          head = [m.firstName, m.middleName, m.surname]
+            .filter(Boolean)
+            .join(' ');
           headEmail = m.email;
           headPhone = m.phone;
         }
@@ -404,11 +448,19 @@ export class DepartmentsService {
               leadershipStatus: 'active',
             },
             include: [
-              { model: Member, as: 'member', attributes: ['firstName', 'middleName', 'surname'] },
+              {
+                model: Member,
+                as: 'member',
+                attributes: ['firstName', 'middleName', 'surname'],
+              },
             ],
           });
           if (assignment?.member) {
-            leader = [assignment.member.firstName, assignment.member.middleName, assignment.member.surname]
+            leader = [
+              assignment.member.firstName,
+              assignment.member.middleName,
+              assignment.member.surname,
+            ]
               .filter(Boolean)
               .join(' ');
           }
@@ -454,19 +506,40 @@ export class DepartmentsService {
     const memberships = await this.unitMembershipModel.findAll({
       where: { unitId: { [Op.in]: unitIds } },
       include: [
-        { model: Member, as: 'member', attributes: ['id', 'firstName', 'middleName', 'surname', 'gender', 'dob', 'email', 'phone', 'suspensionStatus'] },
+        {
+          model: Member,
+          as: 'member',
+          attributes: [
+            'id',
+            'firstName',
+            'middleName',
+            'surname',
+            'gender',
+            'dob',
+            'email',
+            'phone',
+            'suspensionStatus',
+          ],
+        },
         { model: Unit, as: 'unit', attributes: ['id', 'name'] },
       ],
       order: [['startDate', 'ASC']],
     });
 
-    const byMemberId = new Map<string, { member: Member; units: string[]; isActive: boolean }>();
+    const byMemberId = new Map<
+      string,
+      { member: Member; units: string[]; isActive: boolean }
+    >();
     for (const m of memberships) {
       const member = (m as any).member;
       const unit = (m as any).unit;
       const key = member.id;
       if (!byMemberId.has(key)) {
-        byMemberId.set(key, { member, units: [], isActive: (m as any).isActive });
+        byMemberId.set(key, {
+          member,
+          units: [],
+          isActive: (m as any).isActive,
+        });
       }
       const entry = byMemberId.get(key)!;
       if (unit && !entry.units.includes(unit.name)) entry.units.push(unit.name);
@@ -474,7 +547,9 @@ export class DepartmentsService {
     }
 
     return Array.from(byMemberId.entries()).map(([, v]) => {
-      const name = [v.member.firstName, v.member.middleName, v.member.surname].filter(Boolean).join(' ');
+      const name = [v.member.firstName, v.member.middleName, v.member.surname]
+        .filter(Boolean)
+        .join(' ');
       let age: number | undefined;
       if (v.member.dob) age = this.calculateAge(v.member.dob);
       return {
@@ -485,7 +560,10 @@ export class DepartmentsService {
         email: v.member.email,
         phone: v.member.phone,
         attendancePercent: undefined,
-        status: v.isActive && v.member.suspensionStatus === 'active' ? 'Active' : 'Inactive',
+        status:
+          v.isActive && v.member.suspensionStatus === 'active'
+            ? 'Active'
+            : 'Inactive',
         unitName: v.units.join(', ') || undefined,
       };
     });
@@ -513,8 +591,16 @@ export class DepartmentsService {
         leadershipStatus: { [Op.in]: ['active', 'acting', 'inactive'] },
       },
       include: [
-        { model: LeadershipRoleTemplate, as: 'template', attributes: ['id', 'name'] },
-        { model: Member, as: 'member', attributes: ['id', 'firstName', 'middleName', 'surname'] },
+        {
+          model: LeadershipRoleTemplate,
+          as: 'template',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: Member,
+          as: 'member',
+          attributes: ['id', 'firstName', 'middleName', 'surname'],
+        },
       ],
       order: [['startDate', 'DESC']],
     });
@@ -524,12 +610,18 @@ export class DepartmentsService {
 
     const list = assignments.map((a) => {
       const member = (a as any).member;
-      const name = member ? [member.firstName, member.middleName, member.surname].filter(Boolean).join(' ') : 'Unknown';
+      const name = member
+        ? [member.firstName, member.middleName, member.surname]
+            .filter(Boolean)
+            .join(' ')
+        : 'Unknown';
       let daysUntilExpiry: number | undefined;
       if (a.endDate && (a as any).leadershipStatus === 'active') {
         const end = new Date(a.endDate);
         end.setHours(0, 0, 0, 0);
-        const diff = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        const diff = Math.ceil(
+          (end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+        );
         if (diff > 0) daysUntilExpiry = diff;
       }
       return {
@@ -545,10 +637,15 @@ export class DepartmentsService {
 
     const assignedMemberIds = new Set(list.map((a) => (a as any).memberId));
     // If department has headOfDepartmentId but that member is not in assignments, add them as "Head of Department"
-    if (dept.headOfDepartmentId && !assignedMemberIds.has(dept.headOfDepartmentId)) {
+    if (
+      dept.headOfDepartmentId &&
+      !assignedMemberIds.has(dept.headOfDepartmentId)
+    ) {
       const head = dept.headOfDepartment;
       const headName = head
-        ? [head.firstName, head.middleName, head.surname].filter(Boolean).join(' ')
+        ? [head.firstName, head.middleName, head.surname]
+            .filter(Boolean)
+            .join(' ')
         : 'Unknown';
       list.unshift({
         id: `head-${dept.headOfDepartmentId}`,
@@ -561,10 +658,20 @@ export class DepartmentsService {
       });
     }
 
-    return list.map(({ memberId: _m, ...rest }) => rest);
+    return list.map((a) => ({
+      id: a.id,
+      name: a.name,
+      role: a.role,
+      status: a.status,
+      endDate: a.endDate,
+      daysUntilExpiry: a.daysUntilExpiry,
+    }));
   }
 
-  async update(id: string, updateDepartmentDto: UpdateDepartmentDto): Promise<Department> {
+  async update(
+    id: string,
+    updateDepartmentDto: UpdateDepartmentDto,
+  ): Promise<Department> {
     const dept = await this.findOne(id);
     const data: any = { ...updateDepartmentDto };
     if (data.foundedDate && typeof data.foundedDate === 'string') {
@@ -576,7 +683,9 @@ export class DepartmentsService {
 
   async remove(id: string): Promise<{ message: string }> {
     const dept = await this.findOne(id);
-    const unitCount = await this.unitModel.count({ where: { departmentId: id } });
+    const unitCount = await this.unitModel.count({
+      where: { departmentId: id },
+    });
     if (unitCount > 0) {
       throw new BadRequestException(
         'Cannot delete department that has units. Reassign or remove units first.',
@@ -587,7 +696,7 @@ export class DepartmentsService {
   }
 
   async addMember(departmentId: string, dto: AddDepartmentMemberDto) {
-    const dept = await this.findOne(departmentId);
+    await this.findOne(departmentId);
     const unit = await this.unitModel.findOne({
       where: { id: dto.unitId, departmentId },
     });

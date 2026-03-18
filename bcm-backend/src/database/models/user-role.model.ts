@@ -47,4 +47,3 @@ export class UserRole extends Model<UserRole> {
   @BelongsTo(() => Role, 'roleId')
   role: Role;
 }
-

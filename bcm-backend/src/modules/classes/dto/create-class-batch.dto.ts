@@ -16,7 +16,8 @@ import {
  */
 export class CreateClassBatchDto {
   @ApiPropertyOptional({
-    description: 'Class type code (automatically set by endpoint - do not include in request body)',
+    description:
+      'Class type code (automatically set by endpoint - do not include in request body)',
     enum: ['PREYOUTH', 'BAPTISMAL', 'ETS'],
     example: 'ETS',
   })

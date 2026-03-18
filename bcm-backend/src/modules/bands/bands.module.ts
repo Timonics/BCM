@@ -23,4 +23,3 @@ import { LeadershipRoleTemplate } from '../../database/models/leadership-role-te
   exports: [BandsService],
 })
 export class BandsModule {}
-

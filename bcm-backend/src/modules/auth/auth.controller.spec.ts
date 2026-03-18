@@ -12,7 +12,7 @@ type ResponseMock = Response & { cookie: jest.Mock };
 const createResponseMock = (): ResponseMock =>
   ({
     cookie: jest.fn(),
-  } as unknown as ResponseMock);
+  }) as unknown as ResponseMock;
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -230,10 +230,7 @@ describe('AuthController', () => {
         .mockResolvedValueOnce(response2);
 
       const result1 = await controller.loginUser(dto1, response);
-      const result2 = await controller.loginUser(
-        dto2,
-        createResponseMock(),
-      );
+      const result2 = await controller.loginUser(dto2, createResponseMock());
 
       expect(authService.loginUser).toHaveBeenNthCalledWith(1, dto1);
       expect(authService.loginUser).toHaveBeenNthCalledWith(2, dto2);
@@ -308,10 +305,13 @@ describe('AuthController', () => {
 
       authService.loginUser.mockResolvedValue(weirdResponse);
 
-      const result = await controller.loginUser({
-        email: 'weird@bcm.org',
-        password: 'password123',
-      }, response);
+      const result = await controller.loginUser(
+        {
+          email: 'weird@bcm.org',
+          password: 'password123',
+        },
+        response,
+      );
 
       // Controller just forwards whatever AuthService returns
       expect(result).toEqual(weirdResponse.user);

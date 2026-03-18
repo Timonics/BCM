@@ -24,4 +24,3 @@ export { Project } from './project.model';
 export { ProjectMembership } from './project-membership.model';
 export { Notification } from './notification.model';
 export { AuditLog } from './audit-log.model';
-

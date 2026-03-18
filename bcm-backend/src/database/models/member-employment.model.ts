@@ -61,4 +61,3 @@ export class MemberEmployment extends Model<MemberEmployment> {
   @BelongsTo(() => Member, 'memberId')
   member: Member;
 }
-

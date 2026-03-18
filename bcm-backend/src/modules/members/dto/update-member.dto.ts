@@ -6,4 +6,3 @@ import { CreateMemberDto } from './create-member.dto';
  * All fields are optional
  */
 export class UpdateMemberDto extends PartialType(CreateMemberDto) {}
-

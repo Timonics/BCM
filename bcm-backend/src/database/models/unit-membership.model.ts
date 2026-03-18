@@ -87,4 +87,3 @@ export class UnitMembership extends Model<UnitMembership> {
   @BelongsTo(() => Member, 'memberId')
   member: Member;
 }
-

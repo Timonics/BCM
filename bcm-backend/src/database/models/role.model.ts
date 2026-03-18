@@ -46,7 +46,11 @@ export class Role extends Model<Role> {
   @BelongsToMany(() => User, () => UserRole, 'roleId', 'userId')
   users: User[];
 
-  @BelongsToMany(() => Permission, () => RolePermission, 'roleId', 'permissionId')
+  @BelongsToMany(
+    () => Permission,
+    () => RolePermission,
+    'roleId',
+    'permissionId',
+  )
   permissions: Permission[];
 }
-

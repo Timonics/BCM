@@ -37,4 +37,3 @@ import { LeadershipService } from './leadership.service';
   exports: [LeadershipService],
 })
 export class LeadershipModule {}
-
