@@ -43,4 +43,3 @@ export class PermissionsGuard implements CanActivate {
     return requiredPermissions.every((perm) => userPermissions.has(perm));
   }
 }
-

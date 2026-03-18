@@ -7,7 +7,6 @@ import {
   IsOptional,
   Min,
   Max,
-  MaxLength,
 } from 'class-validator';
 
 /**

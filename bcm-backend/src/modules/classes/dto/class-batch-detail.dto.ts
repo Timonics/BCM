@@ -34,7 +34,10 @@ export class ClassBatchDetailDto {
   @ApiProperty({ description: 'End date', example: '2025-05-31' })
   endDate: Date;
 
-  @ApiPropertyOptional({ description: 'Description', example: 'Baptismal Class for January 2025' })
+  @ApiPropertyOptional({
+    description: 'Description',
+    example: 'Baptismal Class for January 2025',
+  })
   description?: string;
 
   @ApiProperty({ description: 'Total members', example: 48 })
@@ -46,22 +49,40 @@ export class ClassBatchDetailDto {
   @ApiPropertyOptional({ description: 'Ready for graduation', example: 38 })
   readyForGraduation?: number;
 
-  @ApiPropertyOptional({ description: 'Gender distribution', example: { male: 24, female: 24 } })
+  @ApiPropertyOptional({
+    description: 'Gender distribution',
+    example: { male: 24, female: 24 },
+  })
   genderDistribution?: { male: number; female: number };
 
-  @ApiPropertyOptional({ description: 'Average attendance percentage', example: 88 })
+  @ApiPropertyOptional({
+    description: 'Average attendance percentage',
+    example: 88,
+  })
   averageAttendance?: number;
 
-  @ApiPropertyOptional({ description: 'Completion progress percentage', example: 85 })
+  @ApiPropertyOptional({
+    description: 'Completion progress percentage',
+    example: 85,
+  })
   completionProgress?: number;
 
-  @ApiPropertyOptional({ description: 'Batch leadership', type: [ClassBatchLeadershipDto] })
+  @ApiPropertyOptional({
+    description: 'Batch leadership',
+    type: [ClassBatchLeadershipDto],
+  })
   leadership?: ClassBatchLeadershipDto[];
 
-  @ApiPropertyOptional({ description: 'Graduation readiness', type: GraduationReadinessDto })
+  @ApiPropertyOptional({
+    description: 'Graduation readiness',
+    type: GraduationReadinessDto,
+  })
   graduationReadiness?: GraduationReadinessDto;
 
-  @ApiPropertyOptional({ description: 'Members list', type: [ClassBatchMemberDto] })
+  @ApiPropertyOptional({
+    description: 'Members list',
+    type: [ClassBatchMemberDto],
+  })
   members?: ClassBatchMemberDto[];
 
   @ApiPropertyOptional({ description: 'Pending approvals count', example: 4 })
@@ -70,7 +91,10 @@ export class ClassBatchDetailDto {
   @ApiPropertyOptional({ description: 'Approved count', example: 3 })
   approved?: number;
 
-  @ApiPropertyOptional({ description: 'Band eligible count (for ETS)', example: 32 })
+  @ApiPropertyOptional({
+    description: 'Band eligible count (for ETS)',
+    example: 32,
+  })
   bandEligible?: number;
 
   @ApiPropertyOptional({ description: 'Total graduated', example: 0 })

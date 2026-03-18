@@ -10,7 +10,11 @@ export class BandMemberResponseDto {
   @ApiProperty({ description: 'Full name', example: 'Sarah Johnson' })
   name: string;
 
-  @ApiProperty({ description: 'Gender', enum: ['male', 'female'], example: 'female' })
+  @ApiProperty({
+    description: 'Gender',
+    enum: ['male', 'female'],
+    example: 'female',
+  })
   gender: string;
 
   @ApiPropertyOptional({ description: 'Age', example: 19 })
@@ -19,13 +23,23 @@ export class BandMemberResponseDto {
   @ApiProperty({ description: 'Join date', example: '2022-01-10' })
   joinDate: Date;
 
-  @ApiPropertyOptional({ description: 'Attendance percentage (null if not tracked)', example: 95, nullable: true })
+  @ApiPropertyOptional({
+    description: 'Attendance percentage (null if not tracked)',
+    example: 95,
+    nullable: true,
+  })
   attendance?: number | null;
 
-  @ApiProperty({ description: 'Member status', enum: ['active', 'suspended'], example: 'active' })
+  @ApiProperty({
+    description: 'Member status',
+    enum: ['active', 'suspended'],
+    example: 'active',
+  })
   status: string;
 
-  @ApiProperty({ description: 'Is overgrown (exceeds age bracket)', example: false })
+  @ApiProperty({
+    description: 'Is overgrown (exceeds age bracket)',
+    example: false,
+  })
   isOvergrown: boolean;
 }
-

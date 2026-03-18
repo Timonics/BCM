@@ -41,7 +41,10 @@ export class DepartmentDetailResponseDto {
   })
   status: string;
 
-  @ApiPropertyOptional({ description: 'Head of department', type: HeadOfDepartmentInfoDto })
+  @ApiPropertyOptional({
+    description: 'Head of department',
+    type: HeadOfDepartmentInfoDto,
+  })
   headOfDepartment?: HeadOfDepartmentInfoDto;
 
   @ApiPropertyOptional({ description: 'Meeting day', example: 'Saturdays' })
@@ -71,6 +74,9 @@ export class DepartmentDetailResponseDto {
   @ApiProperty({ description: 'Leadership alerts count', example: 0 })
   leadershipAlerts: number;
 
-  @ApiProperty({ description: 'Last updated', example: '2025-01-27T12:00:00.000Z' })
+  @ApiProperty({
+    description: 'Last updated',
+    example: '2025-01-27T12:00:00.000Z',
+  })
   updatedAt: Date;
 }

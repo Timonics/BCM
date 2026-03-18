@@ -51,18 +51,25 @@ export class CookieService {
       this.configService.get<string>('JWT_COOKIE_NAME') ||
       defaultName;
 
-    const nodeEnv = (this.configService.get<string>('NODE_ENV') || '').toLowerCase();
+    const nodeEnv = (
+      this.configService.get<string>('NODE_ENV') || ''
+    ).toLowerCase();
     const envSecure = this.configService.get<string>('AUTH_COOKIE_SECURE');
     let secure =
       envSecure !== undefined ? envSecure === 'true' : nodeEnv === 'production';
 
     const sameSiteConfig =
-      (this.configService.get<string>('AUTH_COOKIE_SAME_SITE') ||
-        this.configService.get<string>('JWT_COOKIE_SAME_SITE'))?.toLowerCase() ||
-      undefined;
+      (
+        this.configService.get<string>('AUTH_COOKIE_SAME_SITE') ||
+        this.configService.get<string>('JWT_COOKIE_SAME_SITE')
+      )?.toLowerCase() || undefined;
 
     let sameSite: CookieOptions['sameSite'] = 'lax';
-    if (sameSiteConfig === 'none' || sameSiteConfig === 'lax' || sameSiteConfig === 'strict') {
+    if (
+      sameSiteConfig === 'none' ||
+      sameSiteConfig === 'lax' ||
+      sameSiteConfig === 'strict'
+    ) {
       sameSite = sameSiteConfig;
     } else if (secure) {
       sameSite = 'none';

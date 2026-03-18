@@ -474,7 +474,7 @@ export class UnitsService {
    * Note: Members can belong to multiple units simultaneously (unlike bands)
    */
   async addMemberToUnit(unitId: string, addMemberDto: AddUnitMemberDto) {
-    const unit = await this.getUnitById(unitId);
+    await this.getUnitById(unitId);
     const member = await this.memberModel.findByPk(addMemberDto.memberId);
     if (!member) {
       throw new NotFoundException('Member not found');

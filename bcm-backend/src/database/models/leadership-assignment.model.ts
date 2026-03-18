@@ -109,4 +109,3 @@ export class LeadershipAssignment extends Model<LeadershipAssignment> {
   @BelongsTo(() => Member, 'memberId')
   member: Member;
 }
-

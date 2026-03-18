@@ -34,6 +34,9 @@ export class LeadershipParticipationRowDto {
   @ApiProperty({ description: 'Total days served', example: 197 })
   totalDaysServed: number;
 
-  @ApiProperty({ description: 'Positions held (role names)', example: ['Chairperson', 'Secretary'] })
+  @ApiProperty({
+    description: 'Positions held (role names)',
+    example: ['Chairperson', 'Secretary'],
+  })
   positionsHeld: string[];
 }

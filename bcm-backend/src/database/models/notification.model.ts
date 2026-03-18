@@ -6,8 +6,6 @@ import {
   Default,
   CreatedAt,
 } from 'sequelize-typescript';
-import { User } from './user.model';
-import { Member } from './member.model';
 
 /**
  * Notification model - In-app notifications for alerts
@@ -96,4 +94,3 @@ export class Notification extends Model<Notification> {
   @Column({ field: 'created_at' })
   createdAt: Date;
 }
-

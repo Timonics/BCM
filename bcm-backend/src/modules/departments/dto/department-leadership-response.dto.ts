@@ -7,7 +7,10 @@ export class DepartmentLeadershipResponseDto {
   @ApiProperty({ description: 'Assignment ID', example: 'uuid' })
   id: string;
 
-  @ApiProperty({ description: 'Leader full name', example: 'Brother Michael Johnson' })
+  @ApiProperty({
+    description: 'Leader full name',
+    example: 'Brother Michael Johnson',
+  })
   name: string;
 
   @ApiProperty({ description: 'Role name', example: 'Head of Department' })
@@ -23,6 +26,9 @@ export class DepartmentLeadershipResponseDto {
   @ApiPropertyOptional({ description: 'End date', example: '2025-02-10' })
   endDate?: string;
 
-  @ApiPropertyOptional({ description: 'Days until expiry (if expiring soon)', example: 14 })
+  @ApiPropertyOptional({
+    description: 'Days until expiry (if expiring soon)',
+    example: 14,
+  })
   daysUntilExpiry?: number;
 }

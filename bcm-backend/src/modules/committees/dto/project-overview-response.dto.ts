@@ -7,12 +7,27 @@ export class ProjectOverviewResponseDto {
   @ApiProperty({ description: 'Project ID', example: 'uuid' })
   id: string;
 
-  @ApiProperty({ description: 'Project name', example: 'Easter Revival Campaign' })
+  @ApiProperty({
+    description: 'Project name',
+    example: 'Easter Revival Campaign',
+  })
   name: string;
 
   @ApiProperty({
     description: 'Project type',
-    enum: ['Evangelism', 'Worship', 'Education', 'Infrastructure', 'Welfare', 'Youth', 'Program', 'Event', 'Construction', 'Outreach', 'General'],
+    enum: [
+      'Evangelism',
+      'Worship',
+      'Education',
+      'Infrastructure',
+      'Welfare',
+      'Youth',
+      'Program',
+      'Event',
+      'Construction',
+      'Outreach',
+      'General',
+    ],
     example: 'Evangelism',
   })
   projectType: string;
@@ -36,18 +51,28 @@ export class ProjectOverviewResponseDto {
   })
   status: string;
 
-  @ApiProperty({ description: 'Committee size (number of assigned members)', example: 12 })
+  @ApiProperty({
+    description: 'Committee size (number of assigned members)',
+    example: 12,
+  })
   committeeSize: number;
 
-  @ApiPropertyOptional({ description: 'Number of leadership roles (key positions)' })
+  @ApiPropertyOptional({
+    description: 'Number of leadership roles (key positions)',
+  })
   leadershipCount?: number;
 
-  @ApiPropertyOptional({ description: 'Leadership alerts (expired or expiring soon)' })
+  @ApiPropertyOptional({
+    description: 'Leadership alerts (expired or expiring soon)',
+  })
   leadershipAlerts?: number;
 
   @ApiPropertyOptional({ description: 'Progress percentage (0-100)' })
   progressPercent?: number;
 
-  @ApiProperty({ description: 'Last updated', example: '2025-02-09T12:00:00.000Z' })
+  @ApiProperty({
+    description: 'Last updated',
+    example: '2025-02-09T12:00:00.000Z',
+  })
   updatedAt: Date;
 }

@@ -28,6 +28,9 @@ export class DepartmentMemberResponseDto {
   @ApiProperty({ description: 'Membership status', example: 'Active' })
   status: string;
 
-  @ApiPropertyOptional({ description: 'Unit name(s) within department', example: 'Teen Ministry Unit' })
+  @ApiPropertyOptional({
+    description: 'Unit name(s) within department',
+    example: 'Teen Ministry Unit',
+  })
   unitName?: string;
 }

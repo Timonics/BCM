@@ -39,7 +39,14 @@ export class AuditLog extends Model<AuditLog> {
   user: User;
 
   @Column({
-    type: DataType.ENUM('CREATE', 'UPDATE', 'DELETE', 'ASSIGN', 'APPROVE', 'IMPORT'),
+    type: DataType.ENUM(
+      'CREATE',
+      'UPDATE',
+      'DELETE',
+      'ASSIGN',
+      'APPROVE',
+      'IMPORT',
+    ),
     allowNull: false,
   })
   action: string;
@@ -76,4 +83,3 @@ export class AuditLog extends Model<AuditLog> {
   @Column({ field: 'created_at' })
   createdAt: Date;
 }
-

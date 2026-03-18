@@ -85,7 +85,8 @@ export class CreateBandDto {
   foundedDate?: string;
 
   @ApiPropertyOptional({
-    description: 'Meeting schedule day (e.g., "Sundays", "Mondays", "Every Sunday")',
+    description:
+      'Meeting schedule day (e.g., "Sundays", "Mondays", "Every Sunday")',
     example: 'Sundays',
   })
   @IsOptional()
@@ -100,4 +101,3 @@ export class CreateBandDto {
   @IsString()
   meetingScheduleTime?: string;
 }
-

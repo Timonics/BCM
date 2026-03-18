@@ -1,5 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsEnum, IsString, IsInt, Min, IsUUID } from 'class-validator';
+import {
+  IsOptional,
+  IsEnum,
+  IsString,
+  IsInt,
+  Min,
+  IsUUID,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 /**
@@ -47,7 +54,8 @@ export class LeadershipQueryDto {
   leadershipStatus?: string;
 
   @ApiPropertyOptional({
-    description: 'Filter by status badge (Active, Due, Expired, Vacant, Inactive)',
+    description:
+      'Filter by status badge (Active, Due, Expired, Vacant, Inactive)',
     enum: ['Active', 'Due', 'Expired', 'Vacant', 'Inactive'],
   })
   @IsOptional()

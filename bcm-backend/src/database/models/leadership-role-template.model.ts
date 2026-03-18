@@ -32,7 +32,14 @@ export class LeadershipRoleTemplate extends Model<LeadershipRoleTemplate> {
   name: string;
 
   @Column({
-    type: DataType.ENUM('SIC', 'BAND', 'UNIT', 'CLASS', 'COMMITTEE', 'DEPARTMENT'),
+    type: DataType.ENUM(
+      'SIC',
+      'BAND',
+      'UNIT',
+      'CLASS',
+      'COMMITTEE',
+      'DEPARTMENT',
+    ),
     allowNull: false,
   })
   category: string;
@@ -90,4 +97,3 @@ export class LeadershipRoleTemplate extends Model<LeadershipRoleTemplate> {
   @HasMany(() => LeadershipAssignment, 'templateId')
   assignments: LeadershipAssignment[];
 }
-
