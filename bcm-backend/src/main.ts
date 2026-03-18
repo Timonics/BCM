@@ -13,10 +13,11 @@ async function bootstrap() {
   // Configure CORS from environment
   const corsOrigin = process.env.CORS_ORIGIN || '*';
   app.enableCors({
-    origin: corsOrigin === '*' ? true : corsOrigin.split(','),
+    origin: corsOrigin === '*' 
+      ? true // Reflects requested origin
+      : ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001', ...corsOrigin.split(',')],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   // Global validation pipe with class-validator
