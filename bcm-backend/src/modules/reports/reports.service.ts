@@ -6,6 +6,8 @@ import { Member } from '../../database/models/member.model';
 import { Band } from '../../database/models/band.model';
 import { Unit } from '../../database/models/unit.model';
 import { LeadershipAssignment } from '../../database/models/leadership-assignment.model';
+import { AttendanceRecord } from '../../database/models/attendance-record.model';
+import { AttendanceSession } from '../../database/models/attendance-session.model';
 import { GenerateReportDto } from './dto/generate-report.dto';
 import { ReportOverviewDto } from './dto/report-overview.dto';
 
@@ -22,6 +24,10 @@ export class ReportsService {
     private unitModel: typeof Unit,
     @InjectModel(LeadershipAssignment)
     private leadershipAssignmentModel: typeof LeadershipAssignment,
+    @InjectModel(AttendanceRecord)
+    private attendanceRecordModel: typeof AttendanceRecord,
+    @InjectModel(AttendanceSession)
+    private attendanceSessionModel: typeof AttendanceSession,
   ) {}
 
   async getOverview(): Promise<ReportOverviewDto> {
@@ -47,6 +53,10 @@ export class ReportsService {
 
     const reportsThisMonth = await this.reportHistoryModel.count({
       where: { createdAt: { [Op.gte]: startOfMonth } },
+    });
+
+    const attendanceRecords = await this.attendanceRecordModel.count({
+      where: { createdAt: { [Op.gte]: startOfYear } },
     });
 
     const totalExports = await this.reportHistoryModel.count({
@@ -85,7 +95,7 @@ export class ReportsService {
       totalMembers,
       activeLeaders,
       activeBandsAndUnits: activeBands + activeUnits,
-      attendanceRecords: 0,
+      attendanceRecords,
       lastReportGenerated,
       reportsThisMonth,
       mostGenerated: mostGeneratedTitle,

@@ -7,7 +7,8 @@ import { Member } from '../../database/models/member.model';
 import { Band } from '../../database/models/band.model';
 import { Unit } from '../../database/models/unit.model';
 import { LeadershipAssignment } from '../../database/models/leadership-assignment.model';
-
+import { AttendanceRecord } from '../../database/models/attendance-record.model';
+import { AttendanceSession } from '../../database/models/attendance-session.model';
 @Module({
   imports: [
     SequelizeModule.forFeature([
@@ -16,6 +17,8 @@ import { LeadershipAssignment } from '../../database/models/leadership-assignmen
       Band,
       Unit,
       LeadershipAssignment,
+      AttendanceRecord,
+      AttendanceSession,
     ]),
   ],
   controllers: [ReportsController],
