@@ -16,6 +16,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { LeadershipModule } from './modules/leadership/leadership.module';
 import { CommitteesModule } from './modules/committees/committees.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 // Guards
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
@@ -59,6 +60,7 @@ import { databaseConfig } from './config/database.config';
     NotificationsModule,
     LeadershipModule,
     CommitteesModule,
+    ReportsModule,
   ],
   providers: [
     // Global JWT authentication guard
