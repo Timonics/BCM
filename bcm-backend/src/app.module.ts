@@ -16,6 +16,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { LeadershipModule } from './modules/leadership/leadership.module';
 import { CommitteesModule } from './modules/committees/committees.module';
+import { ReportsModule } from './modules/reports/reports.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 
 // Guards
@@ -60,6 +61,7 @@ import { databaseConfig } from './config/database.config';
     NotificationsModule,
     LeadershipModule,
     CommitteesModule,
+    ReportsModule,
     AttendanceModule,
   ],
   providers: [

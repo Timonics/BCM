@@ -656,31 +656,37 @@ export class AttendanceService {
       'Special Program',
     ];
 
-    if (!allowedTypes.includes(type)) {
+    const matchedType = allowedTypes.find((t) => t.toLowerCase() === type?.toLowerCase());
+
+    if (!matchedType) {
       throw new BadRequestException('Invalid attendance session type filter');
     }
 
-    return type;
+    return matchedType;
   }
 
   private parseSessionStatus(status: string): string {
     const allowedStatuses = ['Open', 'Marked', 'Closed'];
 
-    if (!allowedStatuses.includes(status)) {
+    const matchedStatus = allowedStatuses.find((s) => s.toLowerCase() === status?.toLowerCase());
+
+    if (!matchedStatus) {
       throw new BadRequestException('Invalid attendance session status filter');
     }
 
-    return status;
+    return matchedStatus;
   }
 
   private parseAttendanceStatus(status: string): string {
     const allowedStatuses = ['Present', 'Absent', 'Late', 'Excused'];
 
-    if (!allowedStatuses.includes(status)) {
+    const matchedStatus = allowedStatuses.find((s) => s.toLowerCase() === status?.toLowerCase());
+
+    if (!matchedStatus) {
       throw new BadRequestException('Invalid attendance status');
     }
 
-    return status;
+    return matchedStatus;
   }
 
   private toSlug(value: string): string {
