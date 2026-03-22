@@ -14,7 +14,6 @@ import {
   Loader,
   CheckCircle,
   User,
-  Cross,
 } from "lucide-react";
 import {
   Select,
@@ -25,53 +24,94 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { churchInfo } from "@/data/church-info";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, isLoggingIn } = useAuth();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [codeSent, setCodeSent] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e: React.SubmitEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Validate all fields
+    if (!email || !password || !role) {
+      setError("Please fill in all required fields");
+      toast.error("Please fill in all required fields");
+      return;
+    }
 
-    // Mock validation
-    if (email && password && role) {
-      setCodeSent(true);
-      setShowVerification(true);
-      setIsLoading(false);
-    } else {
-      setError("Please enter all required fields");
-      setIsLoading(false);
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      // Call login mutation
+      login({ email, password });
+      
+      // setCodeSent(true);
+      // setShowVerification(true);
+      // toast.success("Verification code sent to your email!");
+      
+    } catch (err: any) {
+      // Error is already handled by the hook's onError
+      // But we can set local error state if needed
+      setError(err.message || "Login failed. Please try again.");
     }
   };
 
-  const handleVerifyCode = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleVerifyCode = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+
+  //   if (verificationCode.length !== 6) {
+  //     setError("Please enter a valid 6-digit code");
+  //     toast.error("Please enter a valid 6-digit code");
+  //     return;
+  //   }
+
+  //   try {
+  //     // Here you would call your verification API
+  //     // For now, simulate API call
+  //     await new Promise((resolve) => setTimeout(resolve, 1500));
+      
+  //     if (verificationCode === "123456") {
+  //       toast.success("Verification successful! Redirecting...");
+  //       router.push("/welcome");
+  //     } else {
+  //       throw new Error("Invalid verification code");
+  //     }
+  //   } catch (err: any) {
+  //     setError(err.message || "Invalid verification code. Please try again.");
+  //     toast.error(err.message || "Invalid verification code. Please try again.");
+  //   }
+  // };
+
+  const handleBackToLogin = () => {
+    setShowVerification(false);
+    setVerificationCode("");
+    setCodeSent(false);
     setError("");
-    setIsLoading(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Mock validation
-    if (verificationCode === "123456" || verificationCode.length === 6) {
-      setIsLoading(false);
-      router.push("/welcome");
-    } else {
-      setError("Invalid verification code. Please try again.");
-      setIsLoading(false);
-    }
   };
 
   return (
@@ -175,6 +215,17 @@ export default function LoginPage() {
               </motion.p>
             </div>
 
+            {/* Error Display */}
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs sm:text-sm"
+              >
+                {error}
+              </motion.div>
+            )}
+
             {/* Login Form */}
             {!showVerification ? (
               <motion.form
@@ -201,6 +252,7 @@ export default function LoginPage() {
                       placeholder="admin@example.com"
                       className="h-11 sm:h-12 pl-11 rounded-xl border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-sm sm:text-base"
                       required
+                      disabled={isLoggingIn}
                     />
                   </div>
                 </div>
@@ -222,6 +274,7 @@ export default function LoginPage() {
                       placeholder="••••••••"
                       className="h-11 sm:h-12 pl-11 rounded-xl border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-sm sm:text-base"
                       required
+                      disabled={isLoggingIn}
                     />
                   </div>
                 </div>
@@ -235,7 +288,12 @@ export default function LoginPage() {
                   </Label>
                   <div className="mt-2 relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8F9BB3] z-10 pointer-events-none" />
-                    <Select value={role} onValueChange={setRole} required>
+                    <Select 
+                      value={role} 
+                      onValueChange={setRole} 
+                      required
+                      disabled={isLoggingIn}
+                    >
                       <SelectTrigger className="h-11 sm:h-12 pl-11 rounded-xl w-full border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-sm sm:text-base">
                         <SelectValue placeholder="Select your role" />
                       </SelectTrigger>
@@ -269,22 +327,12 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs sm:text-sm"
-                  >
-                    {error}
-                  </motion.div>
-                )}
-
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                   className="w-full h-11 sm:h-12 bg-[#009AF4] hover:bg-[#0086d6] text-white rounded-xl text-sm sm:text-base font-medium shadow-lg shadow-blue-200 hover:shadow-xl transition-all"
                 >
-                  {isLoading ? (
+                  {isLoggingIn ? (
                     <>
                       <Loader className="w-5 h-5 mr-2 animate-spin" />
                       Signing In...
@@ -323,7 +371,7 @@ export default function LoginPage() {
                 )}
 
                 <form
-                  onSubmit={handleVerifyCode}
+                  // onSubmit={handleVerifyCode}
                   className="space-y-4 sm:space-y-6"
                 >
                   <div>
@@ -347,26 +395,17 @@ export default function LoginPage() {
                         className="h-12 sm:h-14 rounded-xl border-[#EDF1F7] focus:border-[#009AF4] focus:ring-[#009AF4] text-center text-lg sm:text-xl tracking-widest font-mono"
                         maxLength={6}
                         required
+                        disabled={isLoggingIn}
                       />
                     </div>
                   </div>
 
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs sm:text-sm"
-                    >
-                      {error}
-                    </motion.div>
-                  )}
-
                   <Button
                     type="submit"
-                    disabled={isLoading || verificationCode.length !== 6}
+                    disabled={isLoggingIn || verificationCode.length !== 6}
                     className="w-full h-11 sm:h-12 bg-[#009AF4] hover:bg-[#0086d6] text-white rounded-xl text-sm sm:text-base font-medium shadow-lg shadow-blue-200 hover:shadow-xl transition-all"
                   >
-                    {isLoading ? (
+                    {isLoggingIn ? (
                       <>
                         <Loader className="w-5 h-5 mr-2 animate-spin" />
                         Verifying...
@@ -382,11 +421,8 @@ export default function LoginPage() {
                   <Button
                     type="button"
                     variant="ghost"
-                    onClick={() => {
-                      setShowVerification(false);
-                      setVerificationCode("");
-                      setCodeSent(false);
-                    }}
+                    onClick={handleBackToLogin}
+                    disabled={isLoggingIn}
                     className="w-full text-[#8F9BB3] hover:text-[#222B45] text-sm"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
