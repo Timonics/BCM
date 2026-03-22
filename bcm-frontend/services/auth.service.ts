@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { LoginCredentials } from "@/types/auth.types";
+import { AuthResponse, LoginCredentials } from "@/types/auth.types";
 
 export class AuthService {
   private static readonly BASE_URL = "/auth";
@@ -8,7 +8,7 @@ export class AuthService {
    * Admin login
    */
   static async adminLogin(credentials: LoginCredentials) {
-    return await api.post(`${this.BASE_URL}/login`, credentials);
+    return await api.post<AuthResponse>(`${this.BASE_URL}/login`, credentials);
   }
 
   static async adminLogout() {}

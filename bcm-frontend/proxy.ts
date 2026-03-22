@@ -20,7 +20,6 @@ function isPublicRoute(pathname: string): boolean {
  * Get auth token from cookies
  */
 function getAuthToken(request: NextRequest): string | null {
-  // Adjust this based on your auth setup
   return request.cookies.get("token")?.value ?? null;
 }
 

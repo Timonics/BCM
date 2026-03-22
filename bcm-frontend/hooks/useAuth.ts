@@ -11,12 +11,6 @@ export const authKeys = {
   user: () => [...authKeys.all, "user"] as const,
 };
 
-interface ApiResponse {
-  success: boolean;
-  data?: AuthResponse;
-  message?: string;
-}
-
 export const useAuth = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -30,7 +24,7 @@ export const useAuth = () => {
         throw new Error(response.message || "Login failed");
       }
 
-      return response as ApiResponse;
+      return response;
     },
     onSuccess: (response) => {
       if (response.success && response.data?.accessToken) {
@@ -66,7 +60,6 @@ export const useAuth = () => {
     mutationFn: async () => {
       const token = Cookies.get("token");
       if (token) {
-        // Optional: Call logout endpoint
         // await AuthService.logout().catch(() => {
         //   // Silently fail if logout endpoint fails
         //   console.warn('Logout endpoint failed');
